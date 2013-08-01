@@ -17,7 +17,7 @@ class EmailActionSuite extends Specification {
     def mailport = 25
 
     def setupSpec() {
-        mailConfig = new EmailConfig("testmail.properties")
+        mailConfig = new EmailConfig("test_mail.properties")
     }
 
     def setup() {

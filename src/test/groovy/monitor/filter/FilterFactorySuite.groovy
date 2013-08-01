@@ -10,7 +10,7 @@ class FilterFactorySuite extends Specification {
 
     def setup() {
         filterconfig = new Properties();
-        filterconfig.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("testfilter.properties"))
+        filterconfig.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("test_filter.properties"))
     }
     def "FilterInitializer should create a LogFilter object for each entry"() {
         def factory = new FilterFactory()

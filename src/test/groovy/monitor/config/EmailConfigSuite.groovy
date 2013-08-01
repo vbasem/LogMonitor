@@ -5,9 +5,9 @@ import spock.lang.Specification
 class EmailConfigSuite extends Specification {
 
     def "EmailConfig should return correct values from the given config file"() {
-        def mailConfig = new EmailConfig("testmail.properties")
+        def mailConfig = new EmailConfig("test_mail.properties")
         def properties = new Properties()
-        properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("testmail.properties"))
+        properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("test_mail.properties"))
 
 
         when:
