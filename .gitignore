@@ -1,0 +1,11 @@
+*.iml
+*.ipr
+*.iws
+.idea
+target
+.gradle
+build
+gradle
+out
+gradle.properties
+
