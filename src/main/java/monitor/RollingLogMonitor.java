@@ -1,5 +1,6 @@
 package monitor;
 
+import monitor.filter.LogFilter;
 import org.apache.commons.io.input.Tailer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

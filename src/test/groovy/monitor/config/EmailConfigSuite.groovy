@@ -17,16 +17,18 @@ class EmailConfigSuite extends Specification {
         def user = mailConfig.getSmtpUser()
         def topic = mailConfig.getTopic()
         def sender = mailConfig.getSender()
+        def recipients = mailConfig.getRecipients()
+        def authenticated = mailConfig.isAuthenticated()
 
         then:
-        host == properties.getProperty("smtp.host")
-        port == properties.getProperty("smtp.port").toInteger()
-        user == properties.getProperty("smtp.user")
-        password == properties.getProperty("smtp.password")
+        host == properties.getProperty("mail.smtp.host")
+        port == properties.getProperty("mail.smtp.port").toInteger()
+        user == properties.getProperty("mail.user")
+        password == properties.getProperty("mail.password")
         topic == properties.getProperty("mail.topic")
         sender == properties.getProperty("mail.sender")
-
-
+        recipients == properties.getProperty("mail.recipients")
+        authenticated == false
 
     }
 }

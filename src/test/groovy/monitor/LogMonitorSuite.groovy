@@ -1,5 +1,6 @@
 package monitor
 
+import monitor.filter.LogFilter
 import spock.lang.Specification
 
 class LogMonitorSuite extends Specification {

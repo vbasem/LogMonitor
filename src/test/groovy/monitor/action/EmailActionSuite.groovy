@@ -2,34 +2,49 @@ package monitor.action
 
 import com.dumbster.smtp.SimpleSmtpServer
 import com.dumbster.smtp.SmtpMessage
+import monitor.config.EmailConfig
+import spock.lang.Shared
+import spock.lang.Specification
 
-class EmailActionSuite {
+class EmailActionSuite extends Specification {
+
+    @Shared
+    EmailConfig mailConfig
+
     def mailAction
+
+    def server
     def mailport = 25
-    def recepients = ["a@b.com", "c@d.com"]
+
+    def setupSpec() {
+        mailConfig = new EmailConfig("testmail.properties")
+    }
 
     def setup() {
-        mailAction = new MailAction(mailPort, "localhost", "user", "password", )
+        mailAction = new MailAction(mailConfig)
     }
 
     def "MailAction should send an email to all recepients"() {
-        def server = SimpleSmtpServer.start(mailport)
+        server = SimpleSmtpServer.start(mailport)
         def msg = "test message"
 
         when:
         mailAction.notify(msg)
         server.stop()
 
-        then: server.receivedEmailSize == 2
+        then: server.receivedEmailSize == 1
 
         def emails = server.receivedEmail
         def firstEmail = (SmtpMessage) emails.next()
 
         then:
-        firstEmail.body == msg
-        firstEmail.getHeaderValue("subject")
-
+        msg  == firstEmail.getBody()
+        mailConfig.getTopic() == firstEmail.getHeaderValue("Subject")
+        // a space is added between each recipients email address, lets remove it
+        mailConfig.getRecipients() == firstEmail.getHeaderValue("To").replace(' ', '')
+        mailConfig.getSender() == firstEmail.getHeaderValue("From")
 
     }
+
 }
 

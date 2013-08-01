@@ -4,18 +4,20 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-public class EmailConfig extends Properties{
-    public static final String SMTP_HOST = "smtp.host";
-    public static final String SMTP_PORT = "smtp.port";
-    public static final String SMTP_USER = "smtp.user";
-    public static final String SMTP_PASS = "smtp.password";
+public class EmailConfig extends Properties {
+    public static final String SMTP_HOST = "mail.smtp.host";
+    public static final String SMTP_PORT = "mail.smtp.port";
+    public static final String SMTP_AUTHENTICATED = "mail.smtp.auth";
+    public static final String SMTP_USER = "mail.user";
+    public static final String SMTP_PASS = "mail.password";
     public static final String MAIL_TOPIC = "mail.topic";
     public static final String MAIL_SENDER = "mail.sender";
+    public static final String MAIL_RECIPIENTS = "mail.recipients";
 
     public EmailConfig(String configFileName) {
         super();
         try {
-            this.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(configFileName)) ;
+            this.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(configFileName));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,5 +46,13 @@ public class EmailConfig extends Properties{
 
     public String getSender() {
         return getProperty(MAIL_SENDER);
+    }
+
+    public String getRecipients() {
+        return getProperty(MAIL_RECIPIENTS);
+    }
+
+    public Boolean isAuthenticated() {
+        return Boolean.valueOf(getProperty("mail.smtp.auth"));
     }
 }
