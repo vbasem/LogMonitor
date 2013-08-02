@@ -33,7 +33,7 @@ public class MailAction implements Action{
             email.setRecipients(Message.RecipientType.TO, InternetAddress.parse(config.getRecipients()));
             Transport.send(email);
 
-            logger.info("Sent email for event: {} - using config: {}", body, config);
+            logger.info("Sent email for event: {} - to: {}", body, config.getRecipients());
         } catch (MessagingException e) {
             logger.error("Failed to created email!", e);
         }

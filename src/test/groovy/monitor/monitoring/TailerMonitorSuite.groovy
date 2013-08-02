@@ -13,18 +13,24 @@ class TailerMonitorSuite extends Specification {
         def mockTailer = Mock(Tailer)
         def monitor = new TailerMonitor(mockTailer)
 
+        mockTailer.getFile() >> Stub(File)
+
         when:
         monitor.startMonitoring()
         Thread.sleep(500)
 
         then:
-        true == true
         1 * mockTailer.run()
+
+        cleanup:
+        monitor.stopMonitoring()
 
     }
     def "A Monitor should stop all its contained monitor processes when stop is called"() {
         def mockTailer = Mock(Tailer)
         def monitor = new TailerMonitor(mockTailer)
+
+        mockTailer.getFile() >> Stub(File)
 
         when:
         monitor.stopMonitoring()
