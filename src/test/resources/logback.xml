@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =================================================================== -->
+<!-- LogBack configuration file -->
+<!-- =================================================================== -->
+<configuration>
+
+    <!-- Append messages to the console -->
+    <appender name="console_appender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%date{dd MMM yyyy ; HH:mm:ss} [%thread] %-5marker %-5level %logger{35} - %msg%n</Pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+
+
+    <!-- Set default log-level -->
+    <root>
+        <appender-ref ref="console_appender" />
+    </root>
+</configuration>

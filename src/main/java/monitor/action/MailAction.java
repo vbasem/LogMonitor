@@ -32,6 +32,8 @@ public class MailAction implements Action{
             email.setFrom(new InternetAddress(config.getSender()));
             email.setRecipients(Message.RecipientType.TO, InternetAddress.parse(config.getRecipients()));
             Transport.send(email);
+
+            logger.info("Sent email for event: {} - using config: {}", body, config);
         } catch (MessagingException e) {
             logger.error("Failed to created email!", e);
         }
