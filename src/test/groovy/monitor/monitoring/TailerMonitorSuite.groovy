@@ -1,5 +1,6 @@
-package monitor
+package monitor.monitoring
 
+import monitor.monitoring.TailerMonitor
 import org.apache.commons.io.input.Tailer
 import spock.lang.Specification
 

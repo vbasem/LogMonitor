@@ -1,48 +1,47 @@
 package monitor.listener
 
 import monitor.filter.LogFilter
-import monitor.listener.RollingLogListener
 import spock.lang.Specification
 
 class LogListenerSuite extends Specification {
 
-    def monitor
+    def listener
     def filter
     def filter2
     def observer
     def observer2
 
     def setup() {
-       monitor = new RollingLogListener()
+       listener = new RollingLogListener()
        filter = Mock(LogFilter)
        filter2 = Mock(LogFilter)
        observer = Mock(monitor.util.Observer)
        observer2 = Mock(monitor.util.Observer)
     }
 
-    def "Log monitor passes each event to filters"() {
+    def "Log Listener passes each event to filters"() {
         def msg = "test log event"
 
-        monitor.addFilter(filter)
-        monitor.addFilter(filter2)
+        listener.addFilter(filter)
+        listener.addFilter(filter2)
 
         when:
-        monitor.handle(msg)
+        listener.handle(msg)
 
         then:
         1 * filter.match(msg) >> true
         1 * filter2.match(msg) >> true
     }
 
-    def "Log monitor notifies observers when filter returns true"() {
+    def "Log Listener notifies observers when filter returns true"() {
         def msg = "test"
 
-        monitor.addFilter(filter)
-        monitor.addObserver(observer)
-        monitor.addObserver(observer2)
+        listener.addFilter(filter)
+        listener.addObserver(observer)
+        listener.addObserver(observer2)
 
         when:
-        monitor.handle(msg)
+        listener.handle(msg)
 
         then:
         1 * filter.match(msg) >> true
@@ -50,21 +49,35 @@ class LogListenerSuite extends Specification {
         1 * observer2.notify(msg)
     }
 
-    def "Log monitor does not notify observer if filter returns false"() {
+    def "Log Listener does not notify observer if filter returns false"() {
         def msg = "test"
 
-        monitor.addFilter(filter)
-        monitor.addObserver(observer)
+        listener.addFilter(filter)
+        listener.addObserver(observer)
 
         filter.match(msg) >> false
 
         when:
-        monitor.handle(msg)
+        listener.handle(msg)
 
         then:
         observer.notify(msg) >> {throw new IllegalAccessError("observer should not be notified when filter returns false")}
 
     }
+
+    def "LogListener registers all filters when addfilters is called"() {
+        listener.addFilters([filter, filter2])
+
+        when:
+        listener.handle("")
+
+        then:
+        1 * filter.match("")
+        1 * filter2.match("")
+
+    }
+
+
 
 
 }

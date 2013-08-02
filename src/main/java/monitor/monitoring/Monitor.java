@@ -1,4 +1,4 @@
-package monitor;
+package monitor.monitoring;
 
 import monitor.filter.LogFilter;
 import monitor.util.Observer;

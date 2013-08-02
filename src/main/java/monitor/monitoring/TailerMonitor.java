@@ -1,4 +1,4 @@
-package monitor;
+package monitor.monitoring;
 
 import org.apache.commons.io.input.Tailer;
 

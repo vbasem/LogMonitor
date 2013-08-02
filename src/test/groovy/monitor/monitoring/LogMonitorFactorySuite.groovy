@@ -1,9 +1,7 @@
-package monitor
+package monitor.monitoring
 
-import monitor.action.Action
-import monitor.filter.LogFilter
 import monitor.listener.LogListener
-import monitor.listener.RollingLogListener
+import monitor.monitoring.LogMonitorFactory
 import spock.lang.Specification
 
 /**
@@ -39,10 +37,23 @@ class LogMonitorFactorySuite extends Specification {
         def files = [new File("."), new File(".")]
         def listener = Mock(LogListener)
 
-
-
         when:
         def monitors = factory.createTailerMonitors(files, listener)
+
+        then:
+        monitors.size == 2
+    }
+
+    def "LogMonitorFactory creates a monitor for each entry in properties file"() {
+        setup:
+        def factory = new LogMonitorFactory()
+        def listener = Mock(LogListener)
+        def props = new Properties();
+        props.setProperty("log.file1", ".");
+        props.setProperty("log.file2", ".");
+
+        when:
+        def monitors = factory.createTailerMonitors(props, listener)
 
         then:
         monitors.size == 2
