@@ -1,9 +1,13 @@
 package monitor;
 
-import monitor.filter.LogFilter;
-import org.apache.commons.io.input.TailerListener;
+import org.apache.commons.io.input.Tailer;
 
-public interface LogMonitor extends TailerListener, Observable {
-
-    public void addFilter(LogFilter filter);
+/**
+ * Created by Basem
+ */
+public class LogMonitor {
+    public void something() {
+       // Tailer.create()
+         //       Tailer.
+    }
 }

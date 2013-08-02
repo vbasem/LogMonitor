@@ -1,5 +1,6 @@
-package monitor;
+package monitor.listener;
 
+import monitor.util.Observer;
 import monitor.filter.LogFilter;
 import org.apache.commons.io.input.Tailer;
 import org.slf4j.Logger;
@@ -8,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.util.HashSet;
 import java.util.Set;
 
-public class RollingLogMonitor implements LogMonitor {
+public class RollingLogListener implements LogListener {
 
     Set<LogFilter> filters;
     Set<Observer> observers;
@@ -17,7 +18,7 @@ public class RollingLogMonitor implements LogMonitor {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public RollingLogMonitor() {
+    public RollingLogListener() {
         filters = new HashSet<LogFilter>();
         observers = new HashSet<Observer>();
     }

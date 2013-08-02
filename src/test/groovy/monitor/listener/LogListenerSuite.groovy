@@ -1,9 +1,10 @@
-package monitor
+package monitor.listener
 
 import monitor.filter.LogFilter
+import monitor.listener.RollingLogListener
 import spock.lang.Specification
 
-class LogMonitorSuite extends Specification {
+class LogListenerSuite extends Specification {
 
     def monitor
     def filter
@@ -12,11 +13,11 @@ class LogMonitorSuite extends Specification {
     def observer2
 
     def setup() {
-       monitor = new RollingLogMonitor()
+       monitor = new RollingLogListener()
        filter = Mock(LogFilter)
        filter2 = Mock(LogFilter)
-       observer = Mock(Observer)
-       observer2 = Mock(Observer)
+       observer = Mock(monitor.util.Observer)
+       observer2 = Mock(monitor.util.Observer)
     }
 
     def "Log monitor passes each event to filters"() {
