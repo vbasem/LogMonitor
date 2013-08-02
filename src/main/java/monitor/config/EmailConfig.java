@@ -24,6 +24,10 @@ public class EmailConfig extends Properties {
 
     }
 
+    public EmailConfig(Properties config) {
+        super(config);
+    }
+
     public String getSmtpHost() {
         return getProperty(SMTP_HOST);
     }
